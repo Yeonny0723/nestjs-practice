@@ -11,6 +11,8 @@ import {
 } from '@nestjs/common';
 import { MoviesService } from './movies.service';
 import { Movie } from './entities/movie.entity';
+import { CreateMovieDTO } from 'src/dto/create-movie.dto';
+import { UpdateMovieDTO } from 'src/dto/update-movie.dto';
 
 @Controller('movies')
 export class MoviesController {
@@ -22,7 +24,7 @@ export class MoviesController {
   }
 
   @Get(':id')
-  getOne(@Param('id') movieId: string): Movie {
+  getOne(@Param('id') movieId: number): Movie {
     const movie = this.moviesService.getOne(movieId);
     if (!movie) {
       throw new NotFoundException(`Movie with ID ${movieId} not found.`);
@@ -31,17 +33,20 @@ export class MoviesController {
   }
 
   @Post()
-  createMovie(@Body() movieData) {
+  createMovie(@Body() movieData: CreateMovieDTO) {
     return this.moviesService.create(movieData);
   }
 
   @Delete(':id')
-  deleteMovie(@Param('id') movieId: string) {
+  deleteMovie(@Param('id') movieId: number) {
     return this.moviesService.deleteOne(movieId);
   }
 
   @Patch(':id')
-  updateMovie(@Param('id') movieId: string, @Body() updateData) {
+  updateMovie(
+    @Param('id') movieId: number,
+    @Body() updateData: UpdateMovieDTO,
+  ) {
     return this.moviesService.update(movieId, updateData);
   }
 }
