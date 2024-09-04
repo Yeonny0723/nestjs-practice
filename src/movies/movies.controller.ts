@@ -11,8 +11,9 @@ import {
 } from '@nestjs/common';
 import { MoviesService } from './movies.service';
 import { Movie } from './entities/movie.entity';
-import { CreateMovieDTO } from 'src/dto/create-movie.dto';
-import { UpdateMovieDTO } from 'src/dto/update-movie.dto';
+import { CreateMovieDTO } from './dto/create-movie.dto';
+import { UpdateMovieDTO } from './dto/update-movie.dto';
+import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 
 @Controller('movies')
 export class MoviesController {
@@ -42,6 +43,9 @@ export class MoviesController {
     return this.moviesService.deleteOne(movieId);
   }
 
+  @ApiOperation({ summary: '영화 업데이트' })
+  @ApiResponse({ status: 201, description: '업데이트 성공' })
+  @ApiResponse({ status: 400, description: '영화 조회 실패' })
   @Patch(':id')
   updateMovie(
     @Param('id') movieId: number,
