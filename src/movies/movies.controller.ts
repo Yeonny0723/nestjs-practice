@@ -11,8 +11,8 @@ import {
 } from '@nestjs/common';
 import { MoviesService } from './movies.service';
 import { Movie } from './entities/movie.entity';
-import { CreateMovieDTO } from 'src/dto/create-movie.dto';
 import { UpdateMovieDTO } from 'src/dto/update-movie.dto';
+import { CreateMovieDTO } from 'src/dto/create-movie.dto';
 
 @Controller('movies')
 export class MoviesController {
